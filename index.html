@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>For Kiran 🤍</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#fff7f8,#ffe8ee);color:#392830;display:flex;align-items:center;justify-content:center}
+.card{width:min(92vw,520px);padding:34px 25px;text-align:center;background:rgba(255,255,255,.92);border-radius:28px;box-shadow:0 20px 60px rgba(70,30,45,.15);position:relative;z-index:2}
+.emoji{font-size:45px;margin-bottom:8px}
+h1{font-size:27px;line-height:1.2;margin:0 0 18px}
+p{font-size:16.5px;line-height:1.6;margin:10px 0}
+.question{font-size:23px;font-weight:750;margin:24px 0 20px}
+.buttons{height:110px;position:relative}
+button{border:0;border-radius:999px;padding:14px 25px;font-size:16px;font-weight:700;-webkit-tap-highlight-color:transparent}
+#yes{background:#e85b78;color:#fff;position:absolute;left:17%;top:4px}
+#no{background:#f0e6e9;color:#684c56;position:absolute;left:57%;top:4px;transition:left .16s ease,top .16s ease}
+.small{font-size:13px;opacity:.65;margin-top:5px}
+.hidden{display:none}
+.success .big{font-size:62px}
+.success h1{font-size:34px}
+.final{margin-top:20px;padding:17px;background:#fff1f4;border-radius:18px}
+.heart{position:fixed;bottom:-30px;z-index:1;opacity:.5;animation:float 7s linear infinite;pointer-events:none}
+@keyframes float{0%{transform:translateY(0);opacity:0}15%{opacity:.5}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+.confetti{position:fixed;top:-30px;z-index:10;font-size:22px;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(500deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div id="hearts"></div>
+
+<div class="card" id="main">
+  <div class="emoji">🤍</div>
+  <h1>Kiran, I know yesterday wasn't our best day…</h1>
+
+  <p>I'm genuinely sorry for the things I said and for hurting you.</p>
+  <p>I know an apology can't undo what happened, but I really don't want one bad week to become the story of us.</p>
+
+  <div class="question">Can we start again? 🤍</div>
+
+  <div class="buttons">
+    <button id="yes">Yes ❤️</button>
+    <button id="no">No 🥺</button>
+  </div>
+
+  <div class="small" id="hint">Just one honest answer…</div>
+</div>
+
+<div class="card success hidden" id="success">
+  <div class="big">🥹❤️</div>
+  <h1>Thank you, Kiran.</h1>
+  <p>No arguments. No ego. Just us.</p>
+
+  <div class="final">
+    <strong>Let me make it up to you.</strong><br>
+    How about I take you out on a proper date? 🫶
+  </div>
+
+  <p style="margin-top:22px">I'm really sorry.<br>
+  And I still care about us. ❤️</p>
+</div>
+
+<script>
+const no=document.getElementById("no");
+const hint=document.getElementById("hint");
+let attempts=0;
+
+function moveNo(){
+  attempts++;
+  const pad=12;
+  const maxX=Math.max(pad,window.innerWidth-no.offsetWidth-pad);
+  const maxY=Math.max(pad,window.innerHeight-no.offsetHeight-pad);
+
+  no.style.left=(pad+Math.random()*(maxX-pad))+"px";
+  no.style.top=(pad+Math.random()*(maxY-pad))+"px";
+
+  if(attempts===1) hint.textContent="Hey Kiran… don't run away yet 😭";
+  else if(attempts===2) hint.textContent="Okay okay… I know I'm asking for a lot 🥺";
+  else if(attempts===3) hint.textContent="Fine… I'll stop chasing the No button 😭❤️";
+  else hint.textContent="Okay, I'll respect that. Take your time. 🤍";
+}
+
+/* Desktop hover + phone touch */
+no.addEventListener("mouseenter",moveNo);
+no.addEventListener("touchstart",function(e){e.preventDefault();moveNo()},{passive:false});
+no.addEventListener("click",function(e){e.preventDefault();moveNo()});
+
+document.getElementById("yes").addEventListener("click",function(){
+  document.getElementById("main").classList.add("hidden");
+  document.getElementById("success").classList.remove("hidden");
+
+  for(let i=0;i<70;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.textContent=["❤️","🤍","💕","✨","🌸"][Math.floor(Math.random()*5)];
+    c.style.left=Math.random()*100+"vw";
+    c.style.animationDelay=Math.random()*.8+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3500);
+  }
+});
+
+for(let i=0;i<18;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.textContent=["♡","♥","🤍"][Math.floor(Math.random()*3)];
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDelay=Math.random()*7+"s";
+  h.style.fontSize=(14+Math.random()*18)+"px";
+  document.getElementById("hearts").appendChild(h);
+}
+</script>
+</body>
+</html>
