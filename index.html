@@ -16,7 +16,7 @@ p{font-size:16.5px;line-height:1.6;margin:10px 0}
 .buttons{height:110px;position:relative}
 button{border:0;border-radius:999px;padding:14px 25px;font-size:16px;font-weight:700;-webkit-tap-highlight-color:transparent}
 #yes{background:#e85b78;color:#fff;position:absolute;left:17%;top:4px}
-#no{background:#f0e6e9;color:#684c56;position:absolute;left:57%;top:4px;transition:left .16s ease,top .16s ease}
+#no{background:#f0e6e9;color:#684c56;position:absolute;z-index:20;left:57%;top:4px;transition:left .16s ease,top .16s ease}
 .small{font-size:13px;opacity:.65;margin-top:5px}
 .hidden{display:none}
 .success .big{font-size:62px}
@@ -34,7 +34,7 @@ button{border:0;border-radius:999px;padding:14px 25px;font-size:16px;font-weight
 
 <div class="card" id="main">
   <div class="emoji">🤍</div>
-  <h1>Kiran, I know yesterday wasn't our best day…</h1>
+  <h1>I know yesterday was a bad day…</h1>
 
   <p>I'm genuinely sorry for the things I said and for hurting you.</p>
   <p>I know an apology can't undo what happened, but I really don't want one bad week to become the story of us.</p>
@@ -70,12 +70,22 @@ let attempts=0;
 
 function moveNo(){
   attempts++;
-  const pad=12;
-  const maxX=Math.max(pad,window.innerWidth-no.offsetWidth-pad);
-  const maxY=Math.max(pad,window.innerHeight-no.offsetHeight-pad);
 
-  no.style.left=(pad+Math.random()*(maxX-pad))+"px";
-  no.style.top=(pad+Math.random()*(maxY-pad))+"px";
+  // Keep the No button fully inside the visible screen.
+  const pad = 18;
+  const buttonW = no.offsetWidth;
+  const buttonH = no.offsetHeight;
+
+  const maxX = Math.max(pad, window.innerWidth - buttonW - pad);
+  const maxY = Math.max(pad, window.innerHeight - buttonH - pad);
+
+  const x = pad + Math.random() * Math.max(0, maxX - pad);
+  const y = pad + Math.random() * Math.max(0, maxY - pad);
+
+  no.style.position = "fixed";
+  no.style.zIndex = "20";
+  no.style.left = x + "px";
+  no.style.top = y + "px";
 
   if(attempts===1) hint.textContent="Hey Kiran… don't run away yet 😭";
   else if(attempts===2) hint.textContent="Okay okay… I know I'm asking for a lot 🥺";
